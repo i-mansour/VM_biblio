@@ -2,7 +2,9 @@
 title: "Activity 3: Bibliometrics and Systematic Review"
 author: "Dr. India Mansour"
 date: "January 2021"
-output: html_document
+output: 
+  html_document: 
+    keep_md: yes
 ---
 
 ```{r setup, include=FALSE}
