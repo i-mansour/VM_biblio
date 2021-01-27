@@ -63,7 +63,7 @@ You can read about the operators (e.g. AND and OR) that you must use in your sea
 
 ### 4. Refine your search and your search string
 
-There is *a lot* of literature about soil carbon -- make sure that you refine your search to get fewer results. You should first try to reduce the number of results by making your research question more specific. For example, focus on a specific type of ecosystem (tropical forest or grassland). If necessary, you can further reduce the number of search results by using the 'Refine Results' categories on WoS. For example, you might narrow the years of the search or exclude review papers. Write down what you do! And remember, these decisions will later influence how you interpret your results!
+There is *a lot* of literature about soil carbon -- make sure that you refine your search to get around 100-300 results. You should first try to reduce the number of results by making your research question more specific. For example, focus on a specific type of ecosystem (tropical forest or grassland). If necessary, you can further reduce the number of search results by using the 'Refine Results' categories on WoS. For example, you might narrow the years of the search or exclude review papers. Write down what you do! And remember, these decisions will later influence how you interpret your results!
 
 **Once you have decided on a topic, you must have it approved by me before you and your group continue.**
 
@@ -146,12 +146,15 @@ Make sure that you write down your inclusion/exclusion criteria!! This is very i
 Now, back to R, but not for long! We will use `revtools` to screen the abstracts.
 Load the revtools package and your BibTeX file:
 
-```{r eval = c(1)}
+```{r}
 library(revtools)
+```
+
+```{r eval = FALSE}
 recs <- read_bibliography("soil_necromass_fungi.bib")
 ```
 
-Now you're going to split the papers up between group members using the `allocate_effort` function. This lets you decide the proportion of articles per person. To have a robust systematic review, it is necessary for some of the articles to be screened by more than one person. This way you can make sure that everyone is applying the inclusion/exclusion criteria in the same way.
+Now you're going to split the papers up between group members using the `allocate_effort` function. This lets you decide the proportion of articles per person. To have a robust systematic review, it is necessary for some of the articles to be screened by more than one person. In this example, 19% of the articles will be screened by more than one person (this function will try to get as close as possible to the proportion that you choose in 'proportion_checked'). This way you can later make sure that everyone is applying the inclusion/exclusion criteria in the same way.
 
 ```{r}
 alleff <- allocate_effort(reviewers = c("India", "GroupMember1", "GroupMember2"), effort = c(0.33,0.34,0.33), proportion_checked = 0.2, quiet = FALSE)
@@ -165,7 +168,7 @@ Some R magic happened behind the scenes when you ran the second line of code. Ta
 
 ### 3. Abstract Screening
 
-Now you're ready to begin abstract screening. Don't worry, you won't be in RStudio too much longer. Now you get to use the shiny web interface! Load your file in R and then use the `screen_abstracts` function. A new window will open up where you can screen your abstracts. Read the title and abstract of the paper, and, based on your inclusion/exclusion criteria, decide whether to include or exclude the article. Click on "Select" or "Exclude" as appropriate. When you are finished, make sure to save your data!! It will not save automatically!
+Now you're ready to begin abstract screening. If R is stressing you out, now is your moment to rejoice: you won't be in RStudio too much longer. Now you get to use the shiny web interface! Load your file in R and then use the `screen_abstracts` function. A new window will open up where you can screen your abstracts. Read the title and abstract of the paper, and, based on your inclusion/exclusion criteria, decide whether to include or exclude the article. Click on "Select" or "Exclude" as appropriate. When you are finished, make sure to save your data!! It will not save automatically!
 
 ```{r eval = FALSE}
 india_papers <- read_bibliography("reviewer_India.csv")
@@ -182,7 +185,7 @@ aggfiles <- aggregate_tasks(file_names = screened, selection_column = "screened_
 write.csv(aggfiles, "agg_screening_results.csv", row.names = F)
 ```
 
-Now we will look for articles that were selected by one or more people. These will be articles that we will use for systematic mapping. We must also look at articles where there were 'conflicts' -- where one person 'selected' and another person 'excluded' the same article. Your group should talk about each article with conflicts and make a decision about whether or not to include this in the systematic mapping.
+Now you will look for articles that were selected by one or more group members These will be articles that you will use for systematic mapping and will appear in the dataframe 'def_sel' when you run the code below. You must also look at articles where there were 'conflicts' -- where one person 'selected' and another person 'excluded' the same article. These will appear in the dataframe 'conflict' when you run the code below. Your group should talk about each article with the conflict dataframe and make a decision about whether or not to include each one. **Note:** in the code below, you will have to change the column numbers `[,54:56]` to match *your* aggfiles dataframe. These columns should contain information about how each reviewer screened each article. The number of columns must be the same as the number of group members.
 
 ```{r eval = FALSE}
 sel <- rowSums(aggfiles[,54:56] == "selected", na.rm = T)
@@ -194,7 +197,7 @@ def_sel <- aggfiles[c(aggfiles2$sel>0 & aggfiles2$excl==0),]
 conflict <- aggfiles[c(aggfiles2$sel>0 & aggfiles2$excl>0),]
 ```
 
-The dataframe def_sel contains the selected papers. After you have discussed all the 'conflict' articles, and decided which articles to include  or not, you can add rows from the 'conflict' dataframe to the def_sel dataframe using `rbind` (recall that you can make a small dataframe with certain rows like this: `conflict[c(X,Y,Z),]`). Then you will create a .csv file with all the selected papers.
+The dataframe def_sel contains the selected papers. After you have discussed all the 'conflict' articles, and decided which articles to include  or not, you can add rows from the 'conflict' dataframe to the def_sel dataframe using `rbind`. **Hint:** look at how `cbind` is used in the code chunk above. Also recall that you can make a small dataframe with certain rows like this: `conflict[c(X,Y,Z),]`. Then you will create a .csv file with all the selected papers:
 
 ```{r eval = FALSE}
 write.csv(def_sel, "selected_articles.csv", row.names = F)
@@ -204,11 +207,11 @@ write.csv(def_sel, "selected_articles.csv", row.names = F)
 
 Now you will begin extracting data from your articles. You should choose a few pieces of information that are relevant for *your* topic. Some ideas might include: article type, ecosystem type, organism studied...Try not to make this too complicated, or it will be very time-consuming. Examples of questions that you might try to answer with the data that you extract: Were most of the studies conducted in temperate grasslands or tropical forests? Did the researchers mostly focus on soil microbes or soil animals?
 
-Open "selected_articles.csv" using Excel, GoogleSheets, or whatever works for you and your group. Delete all columns except the publication year, journal, title, authors and DOI. Create new column names with the name of the data that you and your group will extract from the articles. Work together to extract data from the articles. You will have to search for them using the DOI. (Sometimes it works best when you copy the DOI and the string "doi" in Google.)
+Open "selected_articles.csv" using Excel, GoogleSheets, or whatever works for you and your group. Delete all columns except the publication year, journal, title, authors and DOI. Create new column names with the name of the data that you and your group will extract from the articles. Work together to extract data from the articles and fill in the columns in the spreadsheet. You will have to search for the articles using the DOI. (Sometimes it works best when you copy the DOI and the string "doi" in Google, and make sure that you are logged in with your VPN so that you have access!) When you are finished extracting the data from each article, save the results as a .csv file.
 
 ### 6. Data visualization
 
-Use the skills that you gained during exercise 1 to create 1-2 figures using using ggplot. Think about the data that you have extracted and what kind of data visualization would work the best. Your goal here is to show some information about your group of articles using the data that you extracted from the articles. 
+Load the .csv file with your screening results and use the skills that you gained during exercise 1 to create 1-2 figures using using ggplot in R. Think about the data that you have extracted and what kind of data visualization would work the best. Your goal here is to show some information about your group of articles using the data that you extracted from the articles. 
 Some examples (your figures don't have to be this complicated, but you are welcome to try!):
 
 ![This show different treatment types applied in different studies. This is called a "lollipop chart". Notice that temperature was the most common treatment across studies.](BRV_Fig1b_v2.png)
@@ -226,13 +229,15 @@ Help! --> Refer back to [R for Data Science](https://r4ds.had.co.nz/data-visuali
 
 Okay, now you've got some results! It's time to discuss your outputs with your group and work on writing your Protokoll. You will need to include the following sections:
 
-- Introduction: explain some background information about your topic, cite 3-5 peer-reviewed articles
+- Introduction: explain some background information about your topic, citing 3-5 peer-reviewed articles.
 
-- Methods: include your search string, any refinements that you made to your search in WoS, your inclusion/exclusion criteria and information about the packages that you used in R (remember to cite the package authors!)
+- Methods: include your search string, any refinements that you made to your search in WoS, your inclusion/exclusion criteria and information about the packages that you used in R (remember to cite the package authors!).
 
-- Results: provide some general information (how many WoS results did you have? How many articles remained after screening?); include all the bibliometrics and systematic mapping figures that you produced along with 1-2 sentences describing each figure
+- Results: provide some general information (how many WoS results did you have? How many articles remained after screening?); include all the bibliometrics and systematic mapping figures that you produced along with 1-2 sentences describing each figure.
 
 - Discussion: write about how your interpret your results. This could be a good place to compare your findings to an earlier review paper on a similar topic.
+
+- References: You must include full references for all literature cited in your Protokoll (it should look something like the reference list below).
 
 Cheers!
 
@@ -240,8 +245,11 @@ Cheers!
 
 Aria, M. & Cuccurullo, C. (2017) bibliometrix: An R-tool for comprehensive science mapping analysis, Journal of Informetrics, 11(4), pp 959-975, Elsevier.
 
-MJ Westgate (2019) revtools: An R package to support article screening for evidence synthesis. Research Synthesis Methods http://doi.org/10.1002/jrsm.1374 
+Nakagawa S, Samarasinghe G, Haddaway NR, Westgate MJ, O’Dea RE, Noble DWA, et al. (2019). Research Weaving: Visualizing the Future of Research Synthesis. Trends Ecol Evol 34: 224–238.
 
+Pinek L, Mansour I, Lakovic M, Ryo M, Rillig MC. (2020). Rate of environmental change across scales in ecology. Biol Rev 1: 1798–1811.
+
+Westgate, MJ. (2019) revtools: An R package to support article screening for evidence synthesis. Research Synthesis Methods http://doi.org/10.1002/jrsm.1374 
 
 
 
