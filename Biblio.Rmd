@@ -8,7 +8,7 @@ knit: (function(input_file, encoding) {
   out_dir <- 'docs';
   rmarkdown::render(input_file,
  encoding=encoding,
- output_file=file.path(dirname(input_file), out_dir, 'Biblio.html'))})
+ output_file=file.path(dirname(input_file), out_dir, 'index.html'))})
 ---
 
 ```{r setup, include=FALSE}
@@ -192,7 +192,7 @@ def_sel <- aggfiles[c(aggfiles2$sel>0 & aggfiles2$excl==0),]
 conflict <- aggfiles[c(aggfiles2$sel>0 & aggfiles2$excl>0),]
 ```
 
-The dataframe def_sel contains the selected papers. If needed, you can add rows from the 'conflict' dataframe to the def_sel dataframe using `rbind` (recall that you can make a small dataframe with certain rows like this: `conflict[c(X,Y,Z),]`). After you have discussed all the 'conflict' articles and decided whether to include them or not, you will create a .csv file with all the selected papers.
+The dataframe def_sel contains the selected papers. After you have discussed all the 'conflict' articles, and decided which articles to include  or not, you can add rows from the 'conflict' dataframe to the def_sel dataframe using `rbind` (recall that you can make a small dataframe with certain rows like this: `conflict[c(X,Y,Z),]`). Then you will create a .csv file with all the selected papers.
 
 ```{r eval = FALSE}
 write.csv(def_sel, "selected_articles.csv", row.names = F)
