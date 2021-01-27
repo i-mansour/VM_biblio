@@ -78,7 +78,12 @@ I have recorded a tutorial video showing how to conduct a literature search in t
 ### 2. Begin your bibliometric analysis
 
 Now you can begin working in R. Create a new R script for the project. If you have not installed the `bibliometrix` package yet, please do so now, like this:
-`install.packages("bibliometrix", dependencies=TRUE)` and then load the package: 
+
+```{r eval = FALSE}
+install.packages("bibliometrix", dependencies=TRUE)
+```
+
+and then load the package: 
 
 ```{r message = FALSE}
 library(bibliometrix)
