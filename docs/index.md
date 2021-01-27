@@ -3,17 +3,16 @@ title: "Activity 3: Bibliometrics and Systematic Review"
 author: "Dr. India Mansour"
 date: "January 2021"
 output: 
-  html_document
+  html_document: 
+    keep_md: yes
 knit: (function(input_file, encoding) {
   out_dir <- 'docs';
   rmarkdown::render(input_file,
  encoding=encoding,
- output_file=file.path(dirname(input_file), out_dir, 'Biblio.html'))})
+ output_file=file.path(dirname(input_file), out_dir, 'index.html'))})
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
+
 
 ## Overview
 
@@ -78,7 +77,8 @@ I have recorded a tutorial video showing how to conduct a literature search in t
 Now you can begin working in R. Create a new R script for the project. If you have not installed the `bibliometrix` package yet, please do so now, like this:
 `install.packages("bibliometrix", dependencies=TRUE)` and then load the package: 
 
-```{r message = FALSE}
+
+```r
 library(bibliometrix)
 ```
 
@@ -93,18 +93,25 @@ These 2-letter codes are called 'field tags' and there is a complete list [here]
 
 Continue following the tutorial by performing a descriptive [bibliometric analysis](https://www.bibliometrix.org/vignettes/Introduction_to_bibliometrix.html#bibliometric-analysis). Run the `summary` function. Look at the results of the summary in the console. Write down the timespan and the number of sources and documents. What are the 5 top-cited papers in your collection? Copy/paste the DOIs into Web of Science and check out the abstracts (hint: some of these might be good papers to cite in the introduction of your Protokoll). Now run the `plot` function. Save the plots showing 'Most Productive Countries' and 'Annual Scientific Production'.
 
-```{r include = FALSE}
-file <- "/Users/fastloris/Dropbox/Vertiefungsmodul course materials/WS2021/Praktikum/VM_biblio/soil_necromass_fungi.bib"
-M <- convert2df(file = file, dbsource = "isi", format = "bibtex")
-results <- biblioAnalysis(M, sep = ";")
-S <- summary(object = results, k = 10, pause = FALSE)
-```
+
 
 You can quickly display the DOI or publication year (or any information in the dataframe) by giving the paper/row name and the field code, like this:
 
-```{r}
+
+```r
 M["MILTNER A, 2012, BIOGEOCHEMISTRY", "DI"]
+```
+
+```
+## [1] "10.1007/s10533-011-9658-z"
+```
+
+```r
 M["MILTNER A, 2012, BIOGEOCHEMISTRY", "PY"]
+```
+
+```
+## [1] 2012
 ```
 
 
@@ -114,16 +121,12 @@ Now let's find out how your research topic developed over time. Follow along wit
 
 Now let's look at how keywords in the papers are connected. This will give us some insight about how sub-topics within your topic are related to each other. Follow the tutorial to plot [keyword co-occurrences](https://www.bibliometrix.org/vignettes/Introduction_to_bibliometrix.html#keyword-co-occurrences). Are there clusters of keywords? What ideas are connected to one another? What does this tell you about your topic? Do this reveal something about the way that groups of people think/study this topic?
 
-```{r echo = FALSE}
-NetMatrix <- biblioNetwork(M, analysis = "co-occurrences", network = "keywords", sep = ";")
-net=networkPlot(NetMatrix, normalize="association", weighted=T, n = 30, Title = "Keyword Co-occurrences", type = "fruchterman", size=T,edgesize = 5,labelsize=0.7)
-```
+![](/Users/fastloris/Dropbox/Vertiefungsmodul course materials/WS2021/Praktikum/VM_biblio/docs/index_files/figure-html/unnamed-chunk-4-1.png)<!-- -->
 
 Finally, we will investigate the relationships between authors, keywords and WoS categories. You can choose any 3 field tags that you would like -- looking at journals (sources) or common cited references could also be interesting. We will do this using a three-fields plot, with the function `threeFieldsPlot`. Search in help search bar in R to read about this function and see an example of its use. Try clicking on one of the keywords or authors in the plot below.
 
-```{r echo = FALSE}
-threeFieldsPlot(M, fields=c("DE","AU","SC"),n=c(10,10,10),width = 900)
-```
+<!--html_preserve--><div id="htmlwidget-60c44418223549d8f688" style="width:900px;height:600px;" class="sankeyNetwork html-widget"></div>
+<script type="application/json" data-for="htmlwidget-60c44418223549d8f688">{"x":{"links":{"source":[0,3,4,5,6,7,9,0,1,2,3,8,9,0,1,2,3,8,9,0,3,4,5,6,7,0,3,4,5,6,7,9,0,3,4,5,6,7,9,0,2,4,5,4,5,6,3,5,9,10,11,12,13,14,15,17,18,19,10,11,12,14,15,16,17,19,11,12,16,10,19,12,14],"target":[10,10,10,10,10,10,10,11,11,11,11,11,11,12,12,12,12,12,12,13,13,13,13,13,13,14,14,14,14,14,14,14,15,15,15,15,15,15,15,16,17,17,17,18,18,18,19,19,19,20,20,20,20,20,20,20,20,20,21,21,21,21,21,21,21,21,22,22,22,24,24,25,29],"value":[1,2,1,2,2,2,1,1,3,3,1,4,1,1,2,2,2,2,1,1,2,2,1,1,1,1,1,3,1,1,2,1,2,1,1,2,2,1,1,1,1,1,2,1,3,2,1,2,1,5,2,1,5,1,4,2,3,2,2,3,4,3,1,1,1,1,1,2,3,2,1,1,1],"group":[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null]},"nodes":{"name":["necromass","fungi","decomposition","soil organic matter","amino sugars","microbial necromass","soil organic carbon","microbial","carbon cycling","microbial biomass","liang c","fernandez cw","kennedy pg","kuzyakov y","yang y","zhang x","read dj","li x","he h","wang x","agriculture","environmental sciences \\& ecology","plant sciences","","biodiversity \\& conservation","mycology","","","","physical geography"],"group":["necromass","fungi","decomposition","soil organic matter","amino sugars","microbial necromass","soil organic carbon","microbial","carbon cycling","microbial biomass","liang c","fernandez cw","kennedy pg","kuzyakov y","yang y","zhang x","read dj","li x","he h","wang x","agriculture","environmental sciences \\& ecology","plant sciences","","biodiversity \\& conservation","mycology","","","","physical geography"]},"options":{"NodeID":"Nodes","NodeGroup":"group","LinkGroup":"group","colourScale":"d3.scaleOrdinal(d3.schemeCategory20);","fontSize":12,"fontFamily":null,"nodeWidth":30,"nodePadding":10,"units":"","margin":{"top":null,"right":null,"bottom":null,"left":null},"iterations":32,"sinksRight":true}},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
 Make sure to save all of your results and plots from this exercise. When you are finished, I would recommend spending some time as a group writing a few sentences about each plot -- how do you interpret the results that you've generated? This will make it easier for you to write your Protokoll later.
 
@@ -144,16 +147,32 @@ Make sure that you write down your inclusion/exclusion criteria!! This is very i
 Now, back to R, but not for long! We will use `revtools` to screen the abstracts.
 Load the revtools package and your BibTeX file:
 
-```{r eval = c(1)}
+
+```r
 library(revtools)
-recs <- read_bibliography("soil_necromass_fungi.bib")
+## recs <- read_bibliography("soil_necromass_fungi.bib")
 ```
 
 Now you're going to split the papers up between group members using the `allocate_effort` function. This lets you decide the proportion of articles per person. To have a robust systematic review, it is necessary for some of the articles to be screened by more than one person. This way you can make sure that everyone is applying the inclusion/exclusion criteria in the same way.
 
-```{r eval = c(1)}
+
+```r
 alleff <- allocate_effort(reviewers = c("India", "GroupMember1", "GroupMember2"), effort = c(0.33,0.34,0.33), proportion_checked = 0.2, quiet = FALSE)
-distribute_tasks(recs, alleff)
+```
+
+```
+## Proportion of articles per reviewer:
+## India: 0.39
+## GroupMember1: 0.4
+## GroupMember2: 0.4
+## Proportion of articles reviewed by:
+## 1 person: 0.81
+## 2 people: 0.19
+## 3 people: 0
+```
+
+```r
+## distribute_tasks(recs, alleff)
 ```
 
 Some R magic happened behind the scenes when you ran the second line of code. Take a look in your working directory (or in the "Files" tab in RStudio). You should find that there is now a .csv file for each member of your group! One group member should send all the files created in this step to the other group members. 
@@ -162,7 +181,8 @@ Some R magic happened behind the scenes when you ran the second line of code. Ta
 
 Now you're ready to begin abstract screening. Don't worry, you won't be in RStudio too much longer. Now you get to use the shiny web interface! Load your file in R and then use the `screen_abstracts` function. A new window will open up where you can screen your abstracts. Read the title and abstract of the paper, and, based on your inclusion/exclusion criteria, decide whether to include or exclude the article. Click on "Select" or "Exclude" as appropriate. When you are finished, make sure to save your data!! It will not save automatically!
 
-```{r eval = FALSE}
+
+```r
 india_papers <- read_bibliography("reviewer_India.csv")
 screen_abstracts(india_papers)
 ```
@@ -171,7 +191,8 @@ screen_abstracts(india_papers)
 
 After everyone has finished screening articles, you must now put the files back together again. This can be done using the `aggregate` function in revtools. Make sure that the number of columns and column names match in each .csv file, or this won't work.
 
-```{r eval = FALSE}
+
+```r
 screened <- c("IM_done.csv", "GM1_finished.csv", "GM2_yes.csv")
 aggfiles <- aggregate_tasks(file_names = screened, selection_column = "screened_abstracts", reviewer_names = c("India", "GroupMember1", "GroupMember2"))
 write.csv(aggfiles, "agg_screening_results.csv", row.names = F)
@@ -179,7 +200,8 @@ write.csv(aggfiles, "agg_screening_results.csv", row.names = F)
 
 Now we will look for articles that were selected by one or more people. These will be articles that we will use for systematic mapping. We must also look at articles where there were 'conflicts' -- where one person 'selected' and another person 'excluded' the same article. Your group should talk about each article with conflicts and make a decision about whether or not to include this in the systematic mapping.
 
-```{r eval = FALSE}
+
+```r
 sel <- rowSums(aggfiles[,54:56] == "selected", na.rm = T)
 excl <- rowSums(aggfiles[,54:56] == "excluded", na.rm = T)
 aggfiles2 <- cbind(aggfiles, sel, excl)
@@ -191,7 +213,8 @@ conflict <- aggfiles[c(aggfiles2$sel>0 & aggfiles2$excl>0),]
 
 The dataframe def_sel contains the selected papers. If needed, you can add rows from the 'conflict' dataframe to the def_sel dataframe using 'rbind'. After you have discussed all the 'conflict' articles and decided whether to include them or not, you will create a .csv file with all the selected papers.
 
-```{r eval = FALSE}
+
+```r
 write.csv(def_sel, "selected_articles.csv", row.names = F)
 ```
 
