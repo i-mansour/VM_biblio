@@ -151,12 +151,15 @@ recs <- read_bibliography("soil_necromass_fungi.bib")
 
 Now you're going to split the papers up between group members using the `allocate_effort` function. This lets you decide the proportion of articles per person. To have a robust systematic review, it is necessary for some of the articles to be screened by more than one person. This way you can make sure that everyone is applying the inclusion/exclusion criteria in the same way.
 
-```{r eval = c(1)}
+```{r}
 alleff <- allocate_effort(reviewers = c("India", "GroupMember1", "GroupMember2"), effort = c(0.33,0.34,0.33), proportion_checked = 0.2, quiet = FALSE)
+```
+
+```{r eval = FALSE}
 distribute_tasks(recs, alleff)
 ```
 
-Some R magic happened behind the scenes when you ran the second line of code. Take a look in your working directory (or in the "Files" tab in RStudio). You should find that there is now a .csv file for each member of your group! One group member should send all the files created in this step to the other group members. 
+Some R magic happened behind the scenes when you ran the second line of code. Take a look in your working directory (or in the "Files" tab in RStudio). You should find that there is now a .csv file for each member of your group! **One group member should send all the files created in this step to the other group members** (otherwise you will all have a random assortment of files and will not screen all the abstracts)!
 
 ### 3. Abstract Screening
 
@@ -189,7 +192,7 @@ def_sel <- aggfiles[c(aggfiles2$sel>0 & aggfiles2$excl==0),]
 conflict <- aggfiles[c(aggfiles2$sel>0 & aggfiles2$excl>0),]
 ```
 
-The dataframe def_sel contains the selected papers. If needed, you can add rows from the 'conflict' dataframe to the def_sel dataframe using 'rbind'. After you have discussed all the 'conflict' articles and decided whether to include them or not, you will create a .csv file with all the selected papers.
+The dataframe def_sel contains the selected papers. If needed, you can add rows from the 'conflict' dataframe to the def_sel dataframe using `rbind` (recall that you can make a small dataframe with certain rows like this: `conflict[c(X,Y,Z),]`). After you have discussed all the 'conflict' articles and decided whether to include them or not, you will create a .csv file with all the selected papers.
 
 ```{r eval = FALSE}
 write.csv(def_sel, "selected_articles.csv", row.names = F)
@@ -203,7 +206,17 @@ Open "selected_articles.csv" using Excel, GoogleSheets, or whatever works for yo
 
 ### 6. Data visualization
 
-Use the skills that you gained during exercise 1 to create 1-2 figures using using ggplot. Your goal here is to show some information about your group of articles using the data that you extracted from the articles.
+Use the skills that you gained during exercise 1 to create 1-2 figures using using ggplot. Think about the data that you have extracted and what kind of data visualization would work the best. Your goal here is to show some information about your group of articles using the data that you extracted from the articles. 
+Some examples (your figures don't have to be this complicated, but you are welcome to try!):
+
+![This show different treatment types applied in different studies. This is called a "lollipop chart". Notice that temperature was the most common treatment across studies.](BRV_Fig1b_v2.png)
+
+![This shows how different study types ("Classification") were distributed across levels of ecological organization under study. Notice that there are fewer studies at the 'community' and 'ecosystem' levels, and most of the studies at the 'individual' level were experimental.](BRV_Fig1c.png)
+
+![This figure shows how different organism groups were distributed across treatment categories in various studies; RoC = rate of change. Notice that many studies have investigated fish and insects.](BRV_FigX_B2.png)
+
+These examples are from this [systematic review](https://doi.org/10.1111/brv.12639), although not all of them made it into the final draft.
+If you like the color scheme, you can check out the [Wes Anderson palettes for R](https://cran.r-project.org/web/packages/wesanderson/wesanderson.pdf).
 
 Help! --> Refer back to [R for Data Science](https://r4ds.had.co.nz/data-visualisation.html). The [R Graph Gallery](https://www.r-graph-gallery.com/index.html) has information about how to create a ton of different type of figures in R.
 
