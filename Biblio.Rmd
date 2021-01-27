@@ -73,7 +73,7 @@ Once your topic is approved, you may begin the bibliometric analysis.
 
 ### 1. Produce a BibTeX file in Web of Science
 
-I have recorded a tutorial video showing how to conduct a literature search in the Web of Science and export your results as a .bib file. This is available on [VBrick](https://youtu.be/4wwoNNRR94A) and Blackboard. Follow along with the video and produce your BibTeX file.
+I have recorded a tutorial video showing how to conduct a literature search in the Web of Science and export your results as a .bib file. This is available on [VBrick](https://fu-berlin.eu.vbrickrev.com/sharevideo/2cb4b6bb-11a1-4b38-8618-705412d5fde3). Follow along with the video and produce your BibTeX file.
 
 ### 2. Begin your bibliometric analysis
 
