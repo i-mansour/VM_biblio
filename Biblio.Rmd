@@ -3,7 +3,9 @@ title: "Activity 3: Bibliometrics and Systematic Review"
 author: "Dr. India Mansour"
 date: "January 2021"
 output: 
-  html_document
+  html_document:
+    toc: true
+    toc_float: true
 knit: (function(input_file, encoding) {
   out_dir <- 'docs';
   rmarkdown::render(input_file,
