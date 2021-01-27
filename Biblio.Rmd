@@ -5,6 +5,7 @@ date: "January 2021"
 output: 
   html_document: 
     keep_md: yes
+output_dir: "docs"
 ---
 
 ```{r setup, include=FALSE}
