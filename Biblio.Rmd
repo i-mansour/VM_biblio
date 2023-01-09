@@ -1,7 +1,7 @@
 ---
 title: "Activity 3: Bibliometrics and Systematic Review"
 author: "Dr. India Mansour"
-date: "January 2021"
+date: "January 2021 (updated January 2023)"
 output: 
   html_document:
     toc: true
@@ -162,16 +162,15 @@ The results are saved in `CR`, which now contains information about the top *loc
 topAU <- authorProdOverTime(M, k = 10, graph = TRUE)
 ```
 
-
-
+### 6. Three fields plot
 
 Finally, we will investigate the relationships between authors, keywords and WoS categories. You can choose any 3 field tags that you would like -- looking at journals (sources) or common cited references could also be interesting. We will do this using a three-fields plot, with the function `threeFieldsPlot`. Search in help search bar in R to read about this function and see an example of its use. Try clicking on one of the keywords or authors in the plot below.
 
 ```{r echo = FALSE}
-threeFieldsPlot(M, fields=c("DE","AU","SC"),n=c(10,10,10))
+threeFieldsPlot(M, fields=c("AU","DE","SC"),n=c(10,10,10))
 ```
 
-Make sure to save all of your results and plots from this exercise. When you are finished, I would recommend spending some time as a group writing a few sentences about each plot -- how do you interpret the results that you've generated? This will make it easier for you to write your Protokoll later.
+Make sure to save all of your results and plots from this exercise. You can now complete the first part of the worksheet for this activity.
 
 ## Systematic Mapping
 
@@ -181,9 +180,9 @@ The next part of this activity involves screening your papers and extracting som
 
 The first step is to create your inclusion/exclusion criteria. In other words, what are the characteristics of papers that you will screen?
 
-You should revisit your research question and decide what kind of articles and data are useful to answer your question. Taking my soil/necromass/fungi search as an example, I might be interested in how fungal diversity and activity affects the decomposition or stabilization of necromass in soil. So, I would only include papers that study both necromass and fungal communities (diversity or functions). I would exclude studies that only investigate bacteria and not fungi or that investigate leaf litter but not necromass.
+You should revisit your research question and decide what kind of articles and data are useful to answer your question. Taking my soil/necromass/fungi search as an example, I might be interested in how fungal diversity and activity affects the decomposition or stabilization of necromass in soil. So, I would only include papers that study both necromass and fungal communities (diversity or functions). I would exclude studies that only investigate bacteria and not fungi or that investigate leaf litter but not necromass. I would also exclude all articles that do not report results from experimental research (e.g. review articles).
 
-Make sure that you write down your inclusion/exclusion criteria!! This is very important for reproducibility and must be written in the 'Methods' section of your Protokoll.
+Make sure that you write down your inclusion/exclusion criteria!! This is very important for reproducibility.
 
 ### 2. Dividing up the papers between your group
 
@@ -249,13 +248,13 @@ write.csv(def_sel, "selected_articles.csv", row.names = F)
 
 ### 5. Data Extraction
 
-Now you will begin extracting data from your articles. You should choose a few pieces of information that are relevant for *your* topic. Some ideas might include: article type, ecosystem type, organism studied...Try not to make this too complicated, or it will be very time-consuming. Examples of questions that you might try to answer with the data that you extract: Were most of the studies conducted in temperate grasslands or tropical forests? Did the researchers mostly focus on soil microbes or soil animals?
+Now you will begin extracting data from your articles. You should choose a few pieces of information that are relevant for *your* topic. Some ideas might include: article type, study type, organism studied...Try not to make this too complicated, or it will be very time-consuming. Examples of questions that you might try to answer with the data that you extract: 'Were most of the articles review articles or experimental?' or, 'Did the researchers mostly focus on soil microbes or soil animals?'
 
 Open "selected_articles.csv" using Excel, GoogleSheets, or whatever works for you and your group. Delete all columns except the publication year, journal, title, authors and DOI. Create new column names with the name of the data that you and your group will extract from the articles. Work together to extract data from the articles and fill in the columns in the spreadsheet. You will have to search for the articles using the DOI. (Sometimes it works best when you copy the DOI and the string "doi" in Google, and make sure that you are logged in with your VPN so that you have access!) When you are finished extracting the data from each article, save the results as a .csv file.
 
 ### 6. Data visualization
 
-Load the .csv file with your screening results and use the skills that you gained during exercise 1 to create 1-2 figures using using ggplot in R. Think about the data that you have extracted and what kind of data visualization would work the best. Your goal here is to show some information about your group of articles using the data that you extracted from the articles. 
+Load the .csv file with your screening results and use the skills that you gained during activity 1 to create 1-2 figures using using ggplot in R. Think about the data that you have extracted and what kind of data visualization would work the best. Your goal here is to show some information about your group of articles using the data that you extracted from the articles. 
 Some examples (your figures don't have to be this complicated, but you are welcome to try!):
 
 ![This show different treatment types applied in different studies. This is called a "lollipop chart". Notice that temperature was the most common treatment across studies.](BRV_Fig1b_v2.png)
@@ -269,19 +268,9 @@ If you like the color scheme, you can check out the [Wes Anderson palettes for R
 
 Help! --> Refer back to [R for Data Science](https://r4ds.had.co.nz/data-visualisation.html). The [R Graph Gallery](https://www.r-graph-gallery.com/index.html) has information about how to create a ton of different type of figures in R.
 
-### 7. Congratulations, you made it! Now it's Protokoll time.
+### 7. Fertig!
 
-Okay, now you've got some results! It's time to discuss your outputs with your group and work on writing your Protokoll. You will need to include the following sections:
-
-- Introduction: explain some background information about your topic, citing 3-5 peer-reviewed articles.
-
-- Methods: include your search string, any refinements that you made to your search in WoS, your inclusion/exclusion criteria and information about the packages that you used in R (remember to cite the package authors!).
-
-- Results: provide some general information (how many WoS results did you have? How many articles remained after screening?); include all the bibliometrics and systematic mapping figures that you produced along with 1-2 sentences describing each figure.
-
-- Discussion: write about how your interpret your results. This could be a good place to compare your findings to an earlier review paper on a similar topic.
-
-- References: You must include full references for all literature cited in your Protokoll (it should look something like the reference list below).
+You have completed the activity, congratulations! Now you should complete the worksheet, answer all questions and paste your plots. To receive credit for active participation, please (1) email your completed worksheet as a .docx or .pdf file to me: immansour@zedat.fu-berlin.de AND (2) show your work to a Tutor and discuss your answers with them.
 
 Cheers!
 
