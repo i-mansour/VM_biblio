@@ -17,9 +17,9 @@ knit: (function(input_file, encoding) {
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## Overview of Activity
+## Overview
 
-This activity is an introduction to some techniques and packages that can be used to conduct a systematic review of the literature. We are going to use these techniques to investigate literature about **soil carbon**. We will be using the 'research weaving' framework, proposed by Nakagawa *et al.* 2019, including bibliometrics and systematic mapping. From their abstract (emphasis mine):
+This activity is an introduction to some techniques and packages that can be used to conduct a systematic review of the literature. We are going to use these techniques to investigate literature about topics relevant for **microbial biospherics**. We will be using the 'research weaving' framework, proposed by Nakagawa *et al.* 2019, including bibliometrics and systematic mapping. From their abstract (emphasis mine):
 
 > "Research weaving provides a novel framework that **combines bibliometrics and systematic mapping** to inform the development of a field, the influence of research papers and their interconnections, and to visualize content across and within publications."
 
@@ -31,7 +31,7 @@ You will begin by developing a research question, then using Web of Science [WoS
 
 Remember that your group must have your research question and search string approved before continuing! 
 
-You will then export the search results as a .bib file. This will be used to conduct an exploratory bibliometrics analysis using the `bibliometrix` package  (perhaps you remember this if your took Ökologie Basismodul in June). 
+You will then export the search results as a .bib file. This will be used to conduct an exploratory bibliometrics analysis using the `bibliometrix` package. 
 
 You will then develop inclusion/exclusion criteria and use the `revtools` package to screen literature.
 
@@ -39,15 +39,15 @@ You will then develop inclusion/exclusion criteria and use the `revtools` packag
 
 ### 1. Find a topic with your group
 
-Your first task is to conduct a literature search using Web of Science (WoS) relating to **carbon cycling, soil organic matter and/or decomposition in soils**. You may wish, for example, to explore literature about necromass, to investigate carbon dynamics in desert soils, or to investigate how drought affects soil organic matter degradation. Please discuss your topic with your group and find a topic that is interesting for all of you. 
+Your first task is to conduct a literature search using Web of Science (WoS) relating to **microbial biospherics**. Possible topics include: (1) closed systems ecological research, (2) microbial ecology research using artificial soils, (3) microbial necromass in soil, (4) microbial necromass recycling, and (5) microorganisms and ecosystem stability. You may also propose a topic of your own that you find interesting, as long as it is relevant for microbial biospherics research. Please discuss this with your group and find a topic that is interesting for all of you. 
 
 ### 2. Come up with a research question
 
-You should then come up with a research question. This should be something general enough that it can be addressed by a literature search. For example, "How does drought affect soil organic matter decomposition?" or "How do fungi contribute to necromass dynamics in soil?".
+You should then come up with a research question. This should be something general enough that it can be addressed by a literature search. For example, "What insights have we gained about microbial ecology from research with artificial soils?" or "What topics and organisms have been studied using closed ecological systems?".
 
 ### 3. Start searching...and develop a search string
 
-You will have to create your own search string, with hits in the range of 100-300 articles. Your goal is to create a search string that will capture *all* of the papers that are relevant for your research topic. 
+Your goal is to create a search string that will capture *all* of the papers that are relevant for your research topic. This means that you should think about all possible different words that could describe the same thing, and include them. Usually when you do a 'real' bibliometrics analysis and systematic mapping, you take all relevant papers -- this can involve thousands of articles. Because we only have a few weeks together in the course, you should aim for a topic that results in **100-300 articles**. If your WoS search produces results more than this, you should reduce the scope (e.g. by focusing on a more specific topic).
 
 Here are some examples of search strings:
 
@@ -63,7 +63,9 @@ You can read about the operators (e.g. AND and OR) that you must use in your sea
 
 ### 4. Refine your search and your search string
 
-There is *a lot* of literature about soil carbon -- make sure that you refine your search to get around 100-300 results. You should first try to reduce the number of results by making your research question more specific. For example, focus on a specific type of ecosystem (tropical forest or grassland). If necessary, you can further reduce the number of search results by using the 'Refine Results' categories on WoS. For example, you might narrow the years of the search or exclude review papers. Write down what you do! And remember, these decisions will later influence how you interpret your results!
+If your search produces more than 300 results, you should first try to reduce the number of results by making your research question more specific. For example, focus on a specific organism group (e.g. fungi or bacteria). If necessary, you can further reduce the number of search results by using the 'Refine Results' categories on WoS. For example, you might exclude review papers if you want to focus on experimental research. Likewise, if your search produces less than 100 results, you should broaden the scope. When we (me and the Tutors) check out your search string and research question, we can help you with this.
+
+Write down what you do! And remember, these decisions will later influence how you interpret your results!
 
 **Once you have decided on a topic, you must have it approved by me before you and your group continue.**
 
@@ -73,7 +75,9 @@ Once your topic is approved, you may begin the bibliometric analysis.
 
 ### 1. Produce a BibTeX file in Web of Science
 
-I have recorded a tutorial video showing how to conduct a literature search in the Web of Science and export your results as a .bib file. This is available on [VBrick](https://fu-berlin.eu.vbrickrev.com/sharevideo/2cb4b6bb-11a1-4b38-8618-705412d5fde3). Follow along with the video and produce your BibTeX file.
+There are instructions about how to produce a BibTeX (.bib) file via WoS in [this tutorial](https://www.bibliometrix.org/vignettes/Introduction_to_bibliometrix.html). The tutorial is from the authors of the `bibliometrix` package, Massimo Aria and Corrado Cuccurullo, and contains a lot of information about the various functions available (Aria & Cuccurullo, 2017). The code chunks on this website originate from their tutorial.
+
+I have also recorded a tutorial video showing how to conduct a literature search in the Web of Science and export your results as a .bib file. This is available on [VBrick](https://fu-berlin.eu.vbrickrev.com/sharevideo/2cb4b6bb-11a1-4b38-8618-705412d5fde3). Follow along with the tutorial of your choice and produce your BibTeX file. Take note of how you name the file and the folder where you save it!
 
 ### 2. Begin your bibliometric analysis
 
@@ -90,7 +94,14 @@ library(bibliometrix)
 ```
 
 [Documentation can be found here](https://cran.r-project.org/web/packages/bibliometrix/bibliometrix.pdf).
-Once you have created a .bib file, you must then load the data in R using the `bibliometrix` package and conduct a bibliometrics analysis. Follow along with [this tutorial](https://www.bibliometrix.org/vignettes/Introduction_to_bibliometrix.html). We will begin with the section [Data loading and converting](https://www.bibliometrix.org/vignettes/Introduction_to_bibliometrix.html#data-loading-and-converting). You might have to wait a few minutes for the bibliographic dataframe to be generated...check the console!
+Once you have created a .bib file, you must then load the data in R using the `bibliometrix` package and conduct a bibliometrics analysis. We will begin by loading the data and converting it into a bibliometric dataframe. You might have to wait a few minutes for the bibliographic dataframe to be generated...check the console!
+
+```{r eval = F, message = F}
+file <- "your_bibtex_file.bib"
+
+M <- convert2df(file = file, dbsource = "isi", format = "bibtex")
+```
+
 
 Once the dataframe has loaded, check it out. What are the column names?
 Hint: try using `colnames()`.
@@ -98,10 +109,17 @@ These 2-letter codes are called 'field tags' and there is a complete list [here]
 
 ### 3. Perform a descriptive analysis
 
-Continue following the tutorial by performing a descriptive [bibliometric analysis](https://www.bibliometrix.org/vignettes/Introduction_to_bibliometrix.html#bibliometric-analysis). Run the `summary` function. Look at the results of the summary in the console. Write down the timespan and the number of sources and documents. What are the 5 top-cited papers in your collection? Copy/paste the DOIs into Web of Science and check out the abstracts (hint: some of these might be good papers to cite in the introduction of your Protokoll). Now run the `plot` function. Save the plots showing 'Most Productive Countries' and 'Annual Scientific Production'.
+Continue by performing a descriptive bibliometric analysis and print a summary of the results, using `biblioAnalysis` and `summary`.
+
+```{r eval = F, message = F}
+results <- biblioAnalysis(M, sep = ";")
+S <- summary(object = results, k = 10, pause = FALSE)
+```
+
+Look at the results of the summary in the console to get a sense of your article collection. What are the 5 top-cited papers in your collection? Copy/paste the DOIs into Web of Science and check out the abstracts -- why do you think that they are highly cited? 
 
 ```{r include = FALSE}
-file <- "/Users/fastloris/Desktop/Vertiefungsmodul course materials/WS2021/Praktikum/VM_biblio/soil_necromass_fungi.bib"
+file <- "/Users/fastloris/Desktop/Desktop/Vertiefungsmodul course materials/WS2021/Praktikum/VM_biblio/soil_necromass_fungi.bib"
 M <- convert2df(file = file, dbsource = "isi", format = "bibtex")
 results <- biblioAnalysis(M, sep = ";")
 S <- summary(object = results, k = 10, pause = FALSE)
@@ -114,22 +132,43 @@ M["MILTNER A, 2012, BIOGEOCHEMISTRY", "DI"]
 M["MILTNER A, 2012, BIOGEOCHEMISTRY", "PY"]
 ```
 
+Now run the `plot` function. Save the plot showing 'Most Productive Countries'.
 
-### 4. Investigate authors, keywords and their relationships
-
-Now let's find out how your research topic developed over time. Follow along with the tutorial section [Top-Authors’ Productivity over the Time](https://www.bibliometrix.org/vignettes/Introduction_to_bibliometrix.html#top-authors-productivity-over-the-time). Save this plot (for some datasets this does not work well -- if it doesn't work, do not despair, use the 'most productive authors' plot from before). Who are the authors that are publishing the most nowadays? Who were the authors publishing the most early on? Are there any authors that have been publishing regularly for a long period of time? (Hint: you should check out some of these authors for references for your Protokoll.)
-
-Now let's look at how keywords in the papers are connected. This will give us some insight about how sub-topics within your topic are related to each other. Follow the tutorial to plot [keyword co-occurrences](https://www.bibliometrix.org/vignettes/Introduction_to_bibliometrix.html#keyword-co-occurrences). Are there clusters of keywords? What ideas are connected to one another? What does this tell you about your topic? Do this reveal something about the way that groups of people think/study this topic?
-
-```{r echo = FALSE}
-NetMatrix <- biblioNetwork(M, analysis = "co-occurrences", network = "keywords", sep = ";")
-net=networkPlot(NetMatrix, normalize="association", weighted=T, n = 30, Title = "Keyword Co-occurrences", type = "fruchterman", size=T,edgesize = 5,labelsize=0.7)
+```{r eval = F, message = F}
+plot(x = results, k = 10, pause = FALSE)
 ```
+
+
+### 4. Investigate keywords and their relationships
+
+Let's look at how keywords in the papers are connected. This will give us some insight about how sub-topics within your topic are related to each other. Are there clusters of keywords? What ideas are connected to one another? What does this tell you about your topic? Do this reveal something about the way that groups of people think/study this topic?
+
+```{r}
+NetMatrix <- biblioNetwork(M, analysis = "co-occurrences", network = "keywords", sep = ";") # this creates the network
+net=networkPlot(NetMatrix, normalize="association", weighted=T, n = 30, Title = "Keyword Co-occurrences", type = "fruchterman", size=T,edgesize = 5,labelsize=0.7) # this plots the network
+```
+
+### 5. Local citation networks
+
+We can use local citation networks to explore the relationships between articles in our collection, for example which authors or papers present in our collection were cited frequently by others in the collection. To do this, you can use `localCitations`.
+
+```{r}
+CR <- localCitations(M, sep = ";")
+```
+
+The results are saved in `CR`, which now contains information about the top *locally* cited authors and articles within your collection. Note that "LCS" provides information about *local* citations (i.e. citations within the collection) and "GCS" provides information about *global* citations (i.e. the number of overall citations that this author or paper has. To understand this better, take a look at the top 3 locally cited authors in `CR`. When you produce a plot of the most productive authors over time, do you find the same top 3 authors? Why or why not?
+
+```{r}
+topAU <- authorProdOverTime(M, k = 10, graph = TRUE)
+```
+
+
+
 
 Finally, we will investigate the relationships between authors, keywords and WoS categories. You can choose any 3 field tags that you would like -- looking at journals (sources) or common cited references could also be interesting. We will do this using a three-fields plot, with the function `threeFieldsPlot`. Search in help search bar in R to read about this function and see an example of its use. Try clicking on one of the keywords or authors in the plot below.
 
 ```{r echo = FALSE}
-threeFieldsPlot(M, fields=c("DE","AU","SC"),n=c(10,10,10),width = 900)
+threeFieldsPlot(M, fields=c("DE","AU","SC"),n=c(10,10,10))
 ```
 
 Make sure to save all of your results and plots from this exercise. When you are finished, I would recommend spending some time as a group writing a few sentences about each plot -- how do you interpret the results that you've generated? This will make it easier for you to write your Protokoll later.
