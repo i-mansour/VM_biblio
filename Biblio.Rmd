@@ -17,7 +17,7 @@ knit: (function(input_file, encoding) {
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## Overview
+## Overview of Activity
 
 This activity is an introduction to some techniques and packages that can be used to conduct a systematic review of the literature. We are going to use these techniques to investigate literature about **soil carbon**. We will be using the 'research weaving' framework, proposed by Nakagawa *et al.* 2019, including bibliometrics and systematic mapping. From their abstract (emphasis mine):
 
@@ -101,7 +101,7 @@ These 2-letter codes are called 'field tags' and there is a complete list [here]
 Continue following the tutorial by performing a descriptive [bibliometric analysis](https://www.bibliometrix.org/vignettes/Introduction_to_bibliometrix.html#bibliometric-analysis). Run the `summary` function. Look at the results of the summary in the console. Write down the timespan and the number of sources and documents. What are the 5 top-cited papers in your collection? Copy/paste the DOIs into Web of Science and check out the abstracts (hint: some of these might be good papers to cite in the introduction of your Protokoll). Now run the `plot` function. Save the plots showing 'Most Productive Countries' and 'Annual Scientific Production'.
 
 ```{r include = FALSE}
-file <- "/Users/fastloris/Dropbox/Vertiefungsmodul course materials/WS2021/Praktikum/VM_biblio/soil_necromass_fungi.bib"
+file <- "/Users/fastloris/Desktop/Vertiefungsmodul course materials/WS2021/Praktikum/VM_biblio/soil_necromass_fungi.bib"
 M <- convert2df(file = file, dbsource = "isi", format = "bibtex")
 results <- biblioAnalysis(M, sep = ";")
 S <- summary(object = results, k = 10, pause = FALSE)
