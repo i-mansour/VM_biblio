@@ -1,5 +1,5 @@
 ---
-title: "Activity 3: Bibliometrics and Systematic Review"
+title: "Activity 2: Bibliometrics and Systematic Review"
 author: "Dr. India Mansour"
 date: "January 2021 (updated January 2023)"
 output: 
