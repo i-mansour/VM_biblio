@@ -170,7 +170,7 @@ CR$Authors[1:3,]
 ```
 
 
-Now produce a plot of the most productive authors over time. This shows the authors with the most publications in the collection. Are any or all of your top *locally* cited authors in this plot? Were they 'pioneers' in the field (i.e. earlier publication dates)? Are they currently actively publishing on the topic?
+Now produce a plot of the most productive authors over time. This shows the authors with the most publications in the collection. Are any or all of your top *locally* cited authors in this plot? Were they 'pioneers' in the field (i.e. earlier publication dates)? Are they currently actively publishing on the topic? In this example, the only highly locally cited author that appears in the plot is C.W. Fernandez, who has recently published four articles on our topic.
 
 ```{r}
 topAU <- authorProdOverTime(M, k = 10, graph = TRUE)
@@ -178,10 +178,12 @@ topAU <- authorProdOverTime(M, k = 10, graph = TRUE)
 
 ### 6. Three fields plot
 
-Finally, we will investigate the relationships between authors, keywords and WoS categories. You can choose any 3 field tags that you would like -- looking at journals (sources) or common cited references could also be interesting. We will do this using a three-fields plot, with the function `threeFieldsPlot`. Search in help search bar in R to read about this function and see an example of its use. Try clicking on one of the keywords or authors in the plot below.
+Finally, we will investigate the relationships between authors, keywords and journals (sources). You can choose any 3 field tags that you would like -- looking at WoS categories or common cited references could also be interesting. We will do this using a three-fields plot, with the function `threeFieldsPlot`. Search in help search bar in R to read about this function and see an example of its use. Try clicking on one of the keywords or authors in the plot below.
+
+This can be useful to help you find more useful information about a particular topic or author. For example, if I wanted to find literature that uses amino sugars to investigate necromass, I would check out the reseach of Y. Kuzyakov and Y. Yang. The journal 'Soil Biology and Biochemistry' would also be a good place to search for research using amino sugars.
 
 ```{r echo = FALSE}
-threeFieldsPlot(M, fields=c("AU","DE","SC"),n=c(10,10,10))
+threeFieldsPlot(M, fields=c("AU","DE","SO"),n=c(10,10,10))
 ```
 
 Make sure to save all of your results and plots from this exercise. You can now complete the first part of the worksheet for this activity.
